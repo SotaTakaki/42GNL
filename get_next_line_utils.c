@@ -61,13 +61,11 @@ char	*ft_strchr(const char *str, int chr)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
 	int		len_total;
 	char	*box;
 
 	if (s1 == NULL || s2 == NULL)
 		return (ft_strdup(""));
-	i = 0;
 	len_total = ft_strlen(s1) + ft_strlen(s2);
 	box = (char *)malloc(len_total * sizeof(char) + 1);
 	if (box == NULL)

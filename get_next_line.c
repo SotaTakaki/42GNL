@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	get_next_line(int fd, char **line)
 {
@@ -24,7 +25,7 @@ int	get_next_line(int fd, char **line)
 	*line = ft_strdup("");
 	if (*line == NULL)
 		return (-1);
-//	return_read = 1;
+	return_read = 1;
 	buf = NULL;
 	if (leftover == NULL || leftover == ft_strdup(""))
 	{
@@ -38,13 +39,23 @@ int	get_next_line(int fd, char **line)
 	else
 		buf = leftover;
 	place_null = ft_strchr(buf, '\n');
+	//printf("%s\n", place_null);
 	while (return_read > 0 && place_null == NULL)
 	{
+	//	printf("%s\n", *line);
 		*line = ft_strjoin(*line, buf);
 		if (*line == NULL)
 			return (-1);
+	//		printf("%s\n", *line);
 		return_read = read(fd, buf, BUFFER_SIZE);
+		buf[return_read] = '\0';
 		place_null = ft_strchr(buf, '\n');
+	}
+	if (place_null == NULL)
+	{
+	//	printf("%s\n", *line);
+		free(buf);
+		return (0);
 	}
 	*place_null = '\0';
 	*line = ft_strjoin(*line, buf);
@@ -52,13 +63,6 @@ int	get_next_line(int fd, char **line)
 		return (-1);
 	place_null++;
 	leftover = place_null;
-	if (return_read == 0)
-	{
-		free(buf);
-		free(leftover);
-		free(*line);
-		*line = ft_strdup("");
-		return (0);
-	}
+	//printf("%d\n", return_read);
 	return (1);
 }
