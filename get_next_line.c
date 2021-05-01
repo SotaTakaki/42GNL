@@ -31,6 +31,7 @@ int	get_next_line(int fd, char **line)
 	{
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (buf == NULL)
+			free(*line);
 			return (-1);
 		return_read = read(fd, buf, BUFFER_SIZE);
 		buf[return_read] = '\0';
@@ -45,6 +46,7 @@ int	get_next_line(int fd, char **line)
 	//	printf("%s\n", *line);
 		*line = ft_strjoin(*line, buf);
 		if (*line == NULL)
+			free(buf);
 			return (-1);
 	//		printf("%s\n", *line);
 		return_read = read(fd, buf, BUFFER_SIZE);
@@ -60,9 +62,11 @@ int	get_next_line(int fd, char **line)
 	*place_null = '\0';
 	*line = ft_strjoin(*line, buf);
 	if (*line == NULL)
+		free(buf);
 		return (-1);
 	place_null++;
 	leftover = place_null;
+	free(buf);
 	//printf("%d\n", return_read);
 	return (1);
 }
