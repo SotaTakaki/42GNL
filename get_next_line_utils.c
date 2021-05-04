@@ -30,6 +30,14 @@ char	*ft_strdup(char *src)
 	char	*box;
 	int		i;
 
+	if (src == NULL)
+	{
+		box = (char *)malloc(sizeof(char) * 1);
+		if (box == NULL)
+			return (NULL);
+		box[0] = '\0';
+		return (box);
+	}
 	box = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (box == NULL)
 		return (0);
@@ -47,6 +55,8 @@ char	*ft_strchr(const char *str, int chr)
 {
 	size_t	i;
 
+	if (str == NULL)
+		return (NULL);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -64,7 +74,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len_total;
 	char	*box;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (ft_strdup(""));
 	len_total = ft_strlen(s1) + ft_strlen(s2);
 	box = (char *)malloc(len_total * sizeof(char) + 1);

@@ -12,61 +12,61 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
+char	*ft_lineman(char **line, char *next_sentence, char *sentence);
 
 int	get_next_line(int fd, char **line)
 {
-	static char	*leftover;
+	static char	*next;
 	char		*buf;
 	ssize_t		return_read;
-	char		*place_null;
+	char		*next_sentence;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || fd > 256)
 		return (-1);
-	*line = ft_strdup("");
-	if (*line == NULL)
-		return (-1);
-	return_read = 1;
+	*line = NULL;
 	buf = NULL;
-	if (leftover == NULL || leftover == ft_strdup(""))
+	next_sentence = ft_strchr(next, '\n');
+	if (next_sentence == NULL)
 	{
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (buf == NULL)
-			free(*line);
 			return (-1);
 		return_read = read(fd, buf, BUFFER_SIZE);
 		buf[return_read] = '\0';
-//		printf("%zd\n", return_read);
+		*line = ft_strdup(next);
+		next_sentence = ft_strchr(buf, '\n');
+		while (return_read != 0 && next_sentence == NULL)
+		{
+			*line = ft_strjoin(*line, buf);
+			return_read = read(fd, buf, BUFFER_SIZE);
+			if (return_read == 0)
+				next_sentence = NULL;
+			next_sentence = ft_strchr(buf, '\n');
+		}
 	}
-	else
-		buf = leftover;
-	place_null = ft_strchr(buf, '\n');
-	//printf("%s\n", place_null);
-	while (return_read > 0 && place_null == NULL)
+	if (next_sentence != NULL)
 	{
-	//	printf("%s\n", *line);
-		*line = ft_strjoin(*line, buf);
-		if (*line == NULL)
-			free(buf);
-			return (-1);
-	//		printf("%s\n", *line);
-		return_read = read(fd, buf, BUFFER_SIZE);
-		buf[return_read] = '\0';
-		place_null = ft_strchr(buf, '\n');
+		if (buf != NULL)
+			next = ft_lineman(line, next_sentence, buf);
+		else
+			next = ft_lineman(line, next_sentence, next);
+		return (1);
 	}
-	if (place_null == NULL)
-	{
-	//	printf("%s\n", *line);
-		free(buf);
-		return (0);
-	}
-	*place_null = '\0';
-	*line = ft_strjoin(*line, buf);
-	if (*line == NULL)
-		free(buf);
-		return (-1);
-	place_null++;
-	leftover = place_null;
-	free(buf);
-	//printf("%d\n", return_read);
-	return (1);
+	return (0);
+}
+
+char	*ft_lineman(char **line, char *next_sentence, char *sentence)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	*next_sentence = '\0';
+	tmp = ft_strdup(*line);
+	free(*line);
+	*line = ft_strjoin(tmp, sentence);
+	free(tmp);
+	next_sentence++;
+	tmp = ft_strdup(next_sentence);
+	free(sentence);
+	return (tmp);
 }
