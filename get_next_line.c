@@ -12,7 +12,6 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
-char	*ft_lineman(char **line, char *next_sentence, char *sentence);
 
 int	get_next_line(int fd, char **line)
 {
@@ -21,52 +20,64 @@ int	get_next_line(int fd, char **line)
 	ssize_t		return_read;
 	char		*next_sentence;
 
-	if (fd < 0 || fd > 256)
+	if (fd < 0 || fd > 256 || BUFFER_SIZE < 0)
 		return (-1);
-	*line = NULL;
-	buf = NULL;
-	next_sentence = ft_strchr(next, '\n');
-	if (next_sentence == NULL)
+	*line = ft_strdup("");
+	buf = ft_strdup(next);
+	if (*line == NULL || buf == NULL)
+		return (-1);
+	//return_read = 1;
+	if(next)
 	{
-		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (buf == NULL)
-			return (-1);
-		return_read = read(fd, buf, BUFFER_SIZE);
-		buf[return_read] = '\0';
-		*line = ft_strdup(next);
 		next_sentence = ft_strchr(buf, '\n');
-		while (return_read != 0 && next_sentence == NULL)
+		while(!next_sentence && return_read > 0)
 		{
 			*line = ft_strjoin(*line, buf);
+			if (*line == NULL)
+				return (-1);
+			free(buf);
+			buf = (char *)malloc(BUFFER_SIZE + 1);
+			if (buf == NULL)
+				return (-1);
 			return_read = read(fd, buf, BUFFER_SIZE);
-			if (return_read == 0)
-				next_sentence = NULL;
+			if (return_read == -1)
+				return (-1);
+			buf[return_read] = '\0';
 			next_sentence = ft_strchr(buf, '\n');
 		}
 	}
-	if (next_sentence != NULL)
+	if(!next)
 	{
-		if (buf != NULL)
-			next = ft_lineman(line, next_sentence, buf);
-		else
-			next = ft_lineman(line, next_sentence, next);
-		return (1);
+		next_sentence = NULL;
+		while (!next_sentence && return_read > 0)
+		{
+			*line = ft_strjoin(*line, buf);
+			if (*line == NULL)
+				return (-1);
+			free(buf);
+			buf = (char *)malloc(BUFFER_SIZE + 1);
+			if (buf == NULL)
+				return (-1);
+			return_read = read(fd, buf, BUFFER_SIZE);
+			if (return_read == -1)
+				return (-1);
+			buf[return_read] = '\0';
+			next_sentence = ft_strchr(buf, '\n');
+		}
 	}
-	return (0);
-}
-
-char	*ft_lineman(char **line, char *next_sentence, char *sentence)
-{
-	char	*tmp;
-
-	tmp = NULL;
+	if (return_read == 0)
+	{
+		free(buf);
+		return (0);
+	}
 	*next_sentence = '\0';
-	tmp = ft_strdup(*line);
-	free(*line);
-	*line = ft_strjoin(tmp, sentence);
-	free(tmp);
+	*line = ft_strjoin(*line, buf);
+	if (*line == NULL)
+		return (-1);
 	next_sentence++;
-	tmp = ft_strdup(next_sentence);
-	free(sentence);
-	return (tmp);
+	next = ft_strdup(next_sentence);
+	if (next = NULL)
+		return (-1);
+	free(buf);
+	return (1);
 }

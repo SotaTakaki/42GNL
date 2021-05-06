@@ -20,6 +20,6 @@ int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *src);
 char	*ft_strchr(const char *str, int chr);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 #endif

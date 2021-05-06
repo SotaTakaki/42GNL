@@ -45,5 +45,48 @@ int	main(void)
 
 	i = get_next_line(fd, &line);
 	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
+
+	i = get_next_line(fd, &line);
+	printf("%d:%s\n", i, line);
 	close(fd);
+	return (0);
 }

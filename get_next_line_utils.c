@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-char	*ft_strdog(char const *s1, char const *s2, char *box);
+char	*ft_strdog(char *s1, char *s2, char *box);
 
 size_t	ft_strlen(const char *s)
 {
@@ -69,13 +69,15 @@ char	*ft_strchr(const char *str, int chr)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len_total;
 	char	*box;
 
 	if (s1 == NULL && s2 == NULL)
 		return (ft_strdup(""));
+	if (s2 == NULL)
+		return (s1);
 	len_total = ft_strlen(s1) + ft_strlen(s2);
 	box = (char *)malloc(len_total * sizeof(char) + 1);
 	if (box == NULL)
@@ -84,7 +86,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (box);
 }
 
-char	*ft_strdog(char const *s1, char const *s2, char *box)
+char	*ft_strdog(char *s1, char *s2, char *box)
 {
 	int	i;
 	int	j;
