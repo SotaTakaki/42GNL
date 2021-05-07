@@ -88,5 +88,6 @@ int	main(void)
 	i = get_next_line(fd, &line);
 	printf("%d:%s\n", i, line);
 	close(fd);
+	system("leaks a.out");
 	return (0);
 }

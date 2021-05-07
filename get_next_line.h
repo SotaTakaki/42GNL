@@ -6,7 +6,7 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:57:03 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/01 16:31:17 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/07 03:46:55 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *src);
-char	*ft_strchr(const char *str, int chr);
-char	*ft_strjoin(char *s1, char *s2);
+int		ft_strchr(const char *str, int chr);
+char	*ft_strjoin(char *s1, char *s2, int i);
 
 #endif
