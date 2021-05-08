@@ -6,11 +6,11 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:57:55 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/08 18:34:52 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/08 18:53:14 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

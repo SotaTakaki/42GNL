@@ -6,12 +6,11 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:56:09 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/08 18:30:48 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/08 18:52:41 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 int	get_next_line(int fd, char **line)
 {
