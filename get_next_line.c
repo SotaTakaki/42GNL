@@ -6,7 +6,7 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:56:09 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/19 14:23:19 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:31:04 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*ft_repeat_read(char **line, char *next, ssize_t *return_read, int fd)
 	next_sentence = ft_strchr(next, '\n');
 	buf = ft_strdup(next);
 	free(next);
-	next = NULL;
 	while (next_sentence == -1 && *return_read > 0)
 	{
 		*line = ft_strjoin(*line, buf, -1);
