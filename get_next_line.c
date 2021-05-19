@@ -6,7 +6,7 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:56:09 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/08 18:52:50 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:23:19 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_next_line(int fd, char **line)
 	free(*line);
 	*line = ft_strdup("");
 	return_read = (ssize_t *)ft_strdup("");
-	if (*line == NULL)
+	if (*line == NULL || return_read == NULL)
 		return (-1);
 	next = ft_repeat_read(line, next, return_read, fd);
 	if (*return_read == 0)
@@ -35,6 +35,7 @@ int	get_next_line(int fd, char **line)
 	if (next == NULL || *return_read == -1)
 		return (-1);
 	free(return_read);
+	return_read = NULL;
 	return (1);
 }
 
@@ -48,6 +49,7 @@ char	*ft_repeat_read(char **line, char *next, ssize_t *return_read, int fd)
 	next_sentence = ft_strchr(next, '\n');
 	buf = ft_strdup(next);
 	free(next);
+	next = NULL;
 	while (next_sentence == -1 && *return_read > 0)
 	{
 		*line = ft_strjoin(*line, buf, -1);
