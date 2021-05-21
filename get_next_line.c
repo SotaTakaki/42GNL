@@ -6,7 +6,7 @@
 /*   By: stakaki <stakaki@student.42tokyo.j>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:56:09 by stakaki           #+#    #+#             */
-/*   Updated: 2021/05/19 14:31:04 by stakaki          ###   ########.fr       */
+/*   Updated: 2021/05/19 21:17:20 by stakaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,23 @@
 int	get_next_line(int fd, char **line)
 {
 	static char	*next;
-	ssize_t		*return_read;
+	ssize_t		return_read;
 
 	if (fd < 0 || fd > 256 || BUFFER_SIZE < 0)
 		return (-1);
-	free(*line);
 	*line = ft_strdup("");
-	return_read = (ssize_t *)ft_strdup("");
-	if (*line == NULL || return_read == NULL)
+	return_read = 1;
+	if (*line == NULL)
 		return (-1);
-	next = ft_repeat_read(line, next, return_read, fd);
-	if (*return_read == 0)
+	next = ft_repeat_read(line, next, &return_read, fd);
+	if (return_read == 0)
 	{
 		free(next);
 		next = NULL;
-		free(return_read);
 		return (0);
 	}
-	if (next == NULL || *return_read == -1)
+	if (next == NULL || return_read == -1)
 		return (-1);
-	free(return_read);
-	return_read = NULL;
 	return (1);
 }
 
@@ -45,7 +41,6 @@ char	*ft_repeat_read(char **line, char *next, ssize_t *return_read, int fd)
 	char	*buf;
 	char	*tmp;
 
-	*return_read = 1;
 	next_sentence = ft_strchr(next, '\n');
 	buf = ft_strdup(next);
 	free(next);
